@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-model href="../grammar/rash.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<html 
+    xmlns="http://www.w3.org/1999/xhtml" 
+    prefix="
+    schema: http://schema.org/
+    prism: http://prismstandard.org/namespaces/basic/2.0/
+    dcterms: http://purl.org/dc/terms/">
+    <head>
+        <!-- Visualisation requirements (mandatory for optimal reading) -->
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <link rel="stylesheet" href="./css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="./css/rash.css"/>
+        <script src="./js/jquery.min.js"></script>
+        <script src="./js/bootstrap.min.js"></script>
+        <script src="./js/rash.js"></script>
+
+        <script type="text/javascript" async
+                src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=MML_CHTML">
+        </script>
+
+        <style>
+
+            figure[role=picturebox] img {
+                border: 0px !important; 
+            } 
+        </style>
+
+
+        <!-- /END Visualisation requirements (mandatory for optimal reading) -->
+
+        <title property="dcterms:title">AUGUR: Forecasting the Emergence of New Research Topics</title>
+
+        <!-- Author's data (one or more) -->
+        <meta about="#pc" property="schema:name" name="dc.creator" content="Angelo Antonio Salatino"/>
+        <meta about="#pc" property="schema:email" content="angelo.salatino@open.ac.uk"/>
+        <link about="#pc" property="schema:affiliation" href="#kmi"/>
+
+        <meta about="#adl" property="schema:name" name="dc.creator" content="Francesco Osborner"/>
+        <meta about="#adl" property="schema:email" content="francesco.osborne@open.ac.uk"/>
+        <link about="#adl" property="schema:affiliation" href="#kmi"/>
+
+        <meta about="#adi" property="schema:name" name="dc.creator" content="Enrico Motta"/>
+        <meta about="#adi" property="schema:email" content="enrico.motta@open.ac.uk"/>
+        <link about="#adi" property="schema:affiliation" href="#kmi"/>
+
+
+
+        <!-- Affiliations -->
+        <meta about="#kmi" property="schema:name" content="Knowledge Media Institute, The Open University, Milton Keynes, UK"/>
+
+
+        <!-- Paper keywords (one or more) -->
+        <meta property="prism:keyword" content="Scholarly Data"/>
+        <meta property="prism:keyword" content="Embryonic Topic"/>
+        <meta property="prism:keyword" content="Topic Detection"/>
+        <meta property="prism:keyword" content="Topic Trends"/>
+        <meta property="prism:keyword" content="Semantic Technologies"/>
+        <meta property="prism:keyword" content="Clustering Algorithms"/>
+        <meta property="prism:keyword" content="Ontology"/>
+
+
+    </head>
+    <body>
+        <section id="SectionAbstract" role="doc-abstract">
+            <h1>Abstract</h1>
+            <p>Being able to rapidly recognise new research trends is strategic for many stakeholders, including universities, institutional funding bodies, academic publishers and companies. The literature presents several approaches to identifying the emergence of new research topics, which rely on the assumption that the topic is already exhibiting a certain degree of popularity and consistently referred to by a community of researchers. However, detecting the emergence of a new research area at an embryonic stage, i.e., before the topic has been consistently labelled by a community of researchers and associated with a number of publications, is still an open challenge. We address this issue by introducing Augur, a novel approach to the early detection of research topics. Augur analyses the diachronic relationships between research areas and is able to detect clusters of topics that exhibit dynamics correlated with the emergence of new research topics. Here we also present the Advanced Clique Percolation Method (ACPM), a new community detection algorithm developed specifically for supporting this task. Augur was evaluated on a gold standard of 1,408 debutant topics in the 2000-2011 interval and outperformed four alternative approaches in terms of both precision and recall.
+            </p>
+
+            <p><button type="button" class="btn btn-link">Read more ...</button> (we will post it soon on our institutional repository)</p>
+        </section>
+        <section role="doc-opensci" class="container">
+            <h1>Open Resources</h1>
+            <h2>Gold Standard</h2>
+            <p>In the context of this study, the gold standard is composed by the debutant topics that emerged from the 2000 to 2011 and a list of related topics that can be considered as their “ancestors”. We con-sider also their related topics since all the approaches return a clus-ter of ancestors linked to the future emergence of a yet unlabelled topic.</p>
+            <a href="./downloads/GoldStandard.zip"><button type="button" class="btn btn-outline-success">Download</button></a>
+
+            <p></p>
+            <p></p>
+
+            <h2>Line Charts</h2>
+            <center>
+                <div>
+                    <iframe width="600" height="534" frameborder="0" scrolling="no" src="//plot.ly/~angelosalatino/93.embed"></iframe>
+                    <figcaption><b>Figure 3:</b> Performance of the Advanced Clique Percolation Method.</figcaption>
+                </div>
+                <p></p>
+                <p></p>
+                <div>
+                    <iframe width="600" height="534" frameborder="0" scrolling="no" src="//plot.ly/~angelosalatino/91.embed"></iframe>
+                    <figcaption><b>Figure 4:</b> Performance of Fast Greedy algorithm.</figcaption>
+                </div>
+            </center>
+        </section>
+
+        <section role="doc-logo" class="container">
+            <p></p>
+            <p></p>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!--<h3 class="alignright">Brought to you by</h3>-->  
+                <div class="clear"></div>                    
+                <a href="" title="SKM3"><img src="img/skm3-logo.png" height="116" alt="SKM3 Logo"></a>             
+                <a href="http://kmi.open.ac.uk/" title="Knowledge Media Institute" target="_blank"><img src="img/kmi-logo.png" class="alignright" alt="KMi Logo"></a>
+            </div>
+
+        </section>
+
+    </body>
+</html>
+
