@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-model href="../grammar/rash.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<html 
+    xmlns="http://www.w3.org/1999/xhtml" 
+    prefix="
+    schema: http://schema.org/
+    prism: http://prismstandard.org/namespaces/basic/2.0/
+    dcterms: http://purl.org/dc/terms/">
+    <head>
+        <!-- Visualisation requirements (mandatory for optimal reading) -->
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link rel="stylesheet" href="./css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="./css/rash.css"/>
+        <script src="./js/jquery.min.js"></script>
+        <script src="./js/bootstrap.min.js"></script>
+        <script src="./js/rash.js"></script>
+
+        <script type="text/javascript" async
+                src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=MML_CHTML">
+        </script>
+
+        <style>
+
+            figure[role=picturebox] img {
+                border: 0px !important; 
+            } 
+        </style>
+
+
+        <!-- /END Visualisation requirements (mandatory for optimal reading) -->
+
+        <title property="dcterms:title">The CSO Classifier: Ontology-Driven Detection of Research Topics in Scholarly Articles
+        </title>
+
+        <!-- Author's data (one or more) -->
+        <meta about="#pc" property="schema:name" name="dc.creator" content="Angelo Antonio Salatino"/>
+        <meta about="#pc" property="schema:email" content="angelo.salatino@open.ac.uk"/>
+        <link about="#pc" property="schema:affiliation" href="#kmi"/>
+
+        <meta about="#adl" property="schema:name" name="dc.creator" content="Francesco Osborner"/>
+        <meta about="#adl" property="schema:email" content="francesco.osborne@open.ac.uk"/>
+        <link about="#adl" property="schema:affiliation" href="#kmi"/>
+
+        <meta about="#adi" property="schema:name" name="dc.creator" content="Enrico Motta"/>
+        <meta about="#adi" property="schema:email" content="enrico.motta@open.ac.uk"/>
+        <link about="#adi" property="schema:affiliation" href="#kmi"/>
+
+
+
+        <!-- Affiliations -->
+        <meta about="#kmi" property="schema:name" content="Knowledge Media Institute, The Open University, Milton Keynes, UK"/>
+
+
+        <!-- Paper keywords (one or more) -->
+        <meta property="prism:keyword" content="Scholarly Data"/>
+        <meta property="prism:keyword" content="Scholarly Ontologies"/>
+        <meta property="prism:keyword" content="Bibliographic Data"/>
+        <meta property="prism:keyword" content="Text Mining"/>
+        <meta property="prism:keyword" content="Topic Detection"/>
+        <meta property="prism:keyword" content="Ontology Learning"/>
+
+
+    </head>
+    <body>
+        <section id="SectionAbstract" role="doc-abstract">
+            <h1>Abstract</h1>
+            <p>Classifying research papers according to their research topics is an important task to improve their retrievability, assist the creation of smart analytics, and support a variety of approaches for analysing and making sense of the research environment. In this paper, we present the CSO Classifier, a new unsupervised approach for automatically classifying research papers according to the Computer Science Ontology (CSO), a comprehensive ontology of research areas in the field of Computer Science. The CSO Classifier takes as input the metadata associated with a research paper (title, abstract, keywords) and returns a selection of research concepts drawn from the ontology. The approach was evaluated on a gold standard of manually annotated articles yielding a significant improvement over alternative methods.</p>
+
+        </section>
+        <section id="moreInfo" role="doc-moreinfo">
+            <h1>CSO CLASSIFIER</h1>
+            <p>The CSO Classifier is a novel application that takes as input the text from abstract, title, and keywords of a research paper and outputs a list of relevant concepts from CSO. It consists of two main components: (i) the syntactic module and (ii) the semantic module. Figure 1 depicts its architecture. 
+                The syntactic module parses the input documents and identifies CSO concepts that are explicitly referred in the document. 
+                The semantic module uses part-of-speech tagging to identify promising terms and then exploits word embeddings to infer semantically related topics. Finally, the CSO Classifier combines the results of these two modules and enhances them by including relevant super-areas. </p>
+            <figure id="fig1">
+                <p>
+                    <img src="img/workflow.png" alt="" height="350px"/>
+                </p>
+                <figcaption><strong class="cgen" data-rash-original-content="">Figure 1. </strong>Workflow of the CSO Classifier</figcaption>
+            </figure>
+
+
+        </section>
+        <section id="resources" role="doc-moreinfo" class="container">
+            <h1>Open Resources</h1>
+            <h2>Gold Standard</h2>
+            <p>We built our gold standard by asking 21 domain experts to classify 70 papers in terms of topics drawn from the <a href="https://cso.kmi.open.ac.uk/home">CSO ontology</a>.<br> 
+                    We queried the MAG dataset and selected the 70 most cited papers published in 2007-2017 within the fields of “Semantic Web”, “Natural Language Processing”, and “Data Mining”. We then contacted 21 researchers in these fields at various level of seniority and asked each of them to annotate 10 of these papers. We structured the data collection in order to have each paper annotated by at least three experts, using majority vote to address disagreements. The papers were randomly assigned to experts, while minimising the number of shared papers between each pair of experts. <br>
+                        The Gold Standard is JSON file containing a dictionary of 70 items (papers). Each item has a 32 alphanumerical characters key representing the id of the paper and its value is also a dictionary structured as showed in Table 1.</p>
+                        <!--<figure id="Table2">                
+                            <table>
+                                <tbody><tr><th>Key</th><th>Type</th><th>Info</th></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"doi"</p></td><td rowspan="1" colspan="1"><p>string</p></td><td rowspan="1" colspan="1"><p>DOI of the paper</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"title"</p></td><td rowspan="1" colspan="1"><p>string</p></td><td rowspan="1" colspan="1"><p>title of the paper</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"abstract"</p></td><td rowspan="1" colspan="1"><p>string</p></td><td rowspan="1" colspan="1"><p>abstract of the paper</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"keywords"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>author keywords</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"doc_type"</p></td><td rowspan="1" colspan="1"><p>string</p></td><td rowspan="1" colspan="1"><p>type of document, it identifies whether it is a conference paper, or journal, or others</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"topics"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>Fields of Science identified by Microsoft Academic Graph. This information is not used during the process of classification.</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"source"</p></td><td rowspan="1" colspan="1"><p>string</p></td><td rowspan="1" colspan="1"><p>Source topic, whether it comes form the field of “Semantic Web”, “Natural Language Processing”, or “Data Mining”</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"citations"</p></td><td rowspan="1" colspan="1"><p>numerical</p></td><td rowspan="1" colspan="1"><p>Number of citation at time of download</p></td></tr>
+
+                                    
+                                    <tr><td rowspan="1" colspan="1"><p>"relevant_rater_A"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>relevant topics selected by the first expert during the annotation process</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"relevant_rater_B"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>relevant topics selected by the second expert during the annotation process</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"relevant_rater_C"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>relevant topics selected by the third expert during the annotation process</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"majority_vote"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>set of topic selected using the majority vote approach over the relevant topics chosed by the experts</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"syntactic"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>list of topics returned by the syntactic module</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"semantic"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>list of topics returned by the semantic module</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"enhancement"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>list of enhanced topics from the union of the result of semantic and syntactic module</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"final"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>final set of topics from the CSO Classifier</p></td></tr>
+
+                                </tbody></table>                    
+                            <figcaption><strong class="cgen" data-rash-original-content="">Table 2. </strong>Fields available for each paper in our gold standard. </figcaption>
+                        </figure>-->
+
+
+                        <figure id="Table1">
+                            <h2>paper</h2>
+                            <table width="700px">
+                                <tbody><tr><th>Key</th><th>Type</th><th>Info</th></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"doi"</p></td><td rowspan="1" colspan="1"><p>string</p></td><td rowspan="1" colspan="1"><p>DOI of the paper</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"title"</p></td><td rowspan="1" colspan="1"><p>string</p></td><td rowspan="1" colspan="1"><p>title of the paper</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"abstract"</p></td><td rowspan="1" colspan="1"><p>string</p></td><td rowspan="1" colspan="1"><p>abstract of the paper</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"keywords"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>author keywords</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"doc_type"</p></td><td rowspan="1" colspan="1"><p>string</p></td><td rowspan="1" colspan="1"><p>type of document, it identifies whether it is a conference paper, or journal, or others</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"topics"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>Fields of Science identified by Microsoft Academic Graph. This information is not used during the process of classification.</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"source"</p></td><td rowspan="1" colspan="1"><p>string</p></td><td rowspan="1" colspan="1"><p>Source topic, whether it comes form the field of “Semantic Web”, “Natural Language Processing”, or “Data Mining”</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"citations"</p></td><td rowspan="1" colspan="1"><p>numerical</p></td><td rowspan="1" colspan="1"><p>Number of citation at time of download</p></td></tr>
+
+                                    <!-- topics-->
+
+                                    <tr><td rowspan="1" colspan="1"><p>"gold_standard"</p></td><td rowspan="1" colspan="1"><p>dictionary</p></td><td rowspan="1" colspan="1">
+                                            object containing the information obtained by the experts and the generated gold standard (<a href="#gold_standard"> specifications</a>)
+                                        </td></tr>
+
+                                    <tr><td rowspan="1" colspan="1"><p>"cso_output"</p></td><td rowspan="1" colspan="1"><p>dictionary</p></td><td rowspan="1" colspan="1">
+                                            object containing the output of the CSO Classifier (<a href="#cso_output"> specifications</a>)
+                                        </td></tr>
+
+
+                                </tbody></table>  
+                            <h2 id="gold_standard">gold_standard</h2>
+                            <table width="700px">
+                                <tbody><tr><th>Key</th><th>Type</th><th>Info</th></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"relevant_rater_A"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>relevant topics selected by the first expert during the annotation process</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"relevant_rater_B"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>relevant topics selected by the second expert during the annotation process</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"relevant_rater_C"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>relevant topics selected by the third expert during the annotation process</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"majority_vote"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>set of topics selected using the majority vote approach over the relevant topics chosed by the experts</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"enhancement_majority_vote"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>set of enhanced topics of the majority vote set</p></td></tr>
+                                </tbody></table> 
+                            <h2 id="cso_output">cso_output</h2>
+                            <table width="700px">
+                                <tbody><tr><th>Key</th><th>Type</th><th>Info</th></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"syntactic"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>list of topics returned by the syntactic module</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"semantic"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>list of topics returned by the semantic module</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"enhancement"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>list of enhanced topics from the union of the result of semantic and syntactic module</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>"final"</p></td><td rowspan="1" colspan="1"><p>list</p></td><td rowspan="1" colspan="1"><p>final set of topics from the CSO Classifier</p></td></tr></tbody></table>
+                            <figcaption><strong class="cgen" data-rash-original-content="">Table 1. </strong>Fields available for each paper in our gold standard. </figcaption>
+                        </figure>
+
+                        <a role="button" class="btn btn-primary" href="downloads/GoldStandard.zip">Download Gold Standard (74KB)</a>
+
+                        <br>
+                            <br>
+                                <br>
+                                    <br>
+                                        <br>
+                            <h2>Code Python</h2>
+                            <p>The Python implementation of the CSO Classifier is available through our Github repository.</p>
+                            <a role="button" class="btn btn-primary" href="https://github.com/angelosalatino/cso-classifier">Go to Github repo <i class="fab fa-github"></i></a>
+                            <br>
+                            <br>
+                                <br>
+                                    <br>
+                                        <br>
+                            <h2>Word2Vec Model</h2>
+                            <p>We applied the <a href="https://radimrehurek.com/gensim/models/word2vec.html">word2vec approach</a> to a collection of text from the Microsoft Academic Graph (MAG) for generating word embeddings. We first downloaded titles, and abstracts of 4,654,062 English papers in the field of Computer Science. Then we pre-processed the data by replacing spaces with underscores in all n-grams matching the CSO topic labels (e.g., “digital libraries” became “digital_libraries”) and for frequent bigrams and trigrams (e.g., “highest_accuracies”, “highly_cited_journals”). 
+Finally, we trained the word2vec model using the parameters provided in the following table. The parameters were set to these values after testing several combinations. 
+</p>
+                            <figure id="Table2">
+                           
+                                
+                            <table width="700px">
+                                <tbody><tr><th>Parameter</th><th>Value</th></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>method</p></td><td rowspan="1" colspan="1"><p>skipgram</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>embedding size</p></td><td rowspan="1" colspan="1"><p>128</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>window size</p></td><td rowspan="1" colspan="1"><p>10</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>negative</p></td><td rowspan="1" colspan="1"><p>5</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>max iteration</p></td><td rowspan="1" colspan="1"><p>5</p></td></tr>
+                                    <tr><td rowspan="1" colspan="1"><p>min-count cutoff</p></td><td rowspan="1" colspan="1"><p>10</p></td></tr>
+                                    
+                                </tbody></table>  
+                            
+                            <figcaption><strong class="cgen" data-rash-original-content="">Table 2. </strong>Parameters used for the word2vec model. </figcaption>
+                        </figure>
+                            <a role="button" class="btn btn-primary" href="downloads/9M[128-10]_sg.bin.zip">Download Word2vec model (299MB)</a>
+                            <!--<a href="./downloads/GoldStandard.zip"><button type="button" class="btn btn-outline-success">Download</button></a>
+                
+                            <p></p>
+                            <p></p>
+                            <img src="img/workflow.png" alt=""/>
+                            <h2>Line Charts</h2>
+                            <center>
+                                <div>
+                                    <iframe width="1000" height="534" frameborder="0" scrolling="no" src="acpm-all-years-cfdf.html"></iframe>
+                                    <figcaption>
+                                        <b>Figure 3:</b> Performance of the Advanced Clique Percolation Method.</figcaption>
+                                </div>
+                                <p></p>
+                                <p></p>
+                                <div>
+                                    <iframe width="1000" height="534" frameborder="0" scrolling="no" src="fg-all-years-cfdf.html"></iframe>
+                                    <figcaption>
+                                        <b>Figure 4:</b> Performance of Fast Greedy algorithm.</figcaption>
+                                </div>
+                            </center>-->
+                            <!--<center>
+                                <div>
+                                    <iframe width="600" height="534" frameborder="0" scrolling="no" src="//plot.ly/~angelosalatino/93.embed"></iframe>
+                                    <figcaption><b>Figure 3:</b> Performance of the Advanced Clique Percolation Method.</figcaption>
+                                </div>
+                                <p></p>
+                                <p></p>
+                                <div>
+                                    <iframe width="600" height="534" frameborder="0" scrolling="no" src="//plot.ly/~angelosalatino/91.embed"></iframe>
+                                    <figcaption><b>Figure 4:</b> Performance of Fast Greedy algorithm.</figcaption>
+                                </div>
+                            </center>-->
+                            </section>
+
+                            <section role="doc-logo" class="container">
+                                <p></p>
+                                <p></p>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <!--<h3 class="alignright">Brought to you by</h3>-->  
+                                    <div class="clear"></div>                    
+                                    <a href="" title="SKM3"><img src="img/skm3-logo.png" height="116" alt="SKM3 Logo"></a>             
+                                    <a href="http://kmi.open.ac.uk/" title="Knowledge Media Institute" target="_blank"><img src="img/kmi-logo.png" class="alignright" alt="KMi Logo"></a>
+                                </div>
+
+                            </section>
+
+                            </body>
+                            </html>
+
